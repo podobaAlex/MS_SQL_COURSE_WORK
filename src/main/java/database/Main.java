@@ -1,12 +1,11 @@
 package database;
 
+import javax.swing.*;
+import javax.swing.table.TableColumn;
 import java.sql.*;
 import java.util.Arrays;
 
 public class Main {
-
-    public static Connection connObj;
-    public static String JDBC_URL = "jdbc:sqlserver://localhost:1433;databaseName=tutorialDb;integratedSecurity=true";
 
     public static void main(String[] args) {
         String connectionUrl =
@@ -15,36 +14,32 @@ public class Main {
                         + "integratedSecurity=true;"
                         + "encrypt=false;";
 
-        ResultSet resultSet = null;
-
-        try (Connection connection = DriverManager.getConnection(connectionUrl);
-             Statement statement = connection.createStatement()) {
-
-            // Create and execute a SELECT SQL statement.
-            String selectSql = "SELECT TOP 10 * from dbo.Agents";
-            resultSet = statement.executeQuery(selectSql);
-
-            StringBuilder result = new StringBuilder();
-
-            // Print results from select statement
-            while (resultSet.next()) {
-                result.append(resultSet.getString(2)).append(",").append(resultSet.getString(3)).append(";");
-            }
-
-            Object[][] res = Arrays.stream(
-                    result.toString().split(";")
-            ).map(
-                    i -> i.split(",")
-            ).toArray(Object[][]::new);
-
-            Arrays.stream(res).forEach(x -> Arrays.stream(x).forEach(System.out::println));
-
-
-
-        }
-        catch (SQLException e) {
+        String[] columnsName = {"IdProd", "Name", "Num"};
+        String result = null;
+        try {
+            SQLConnection sqlConnection = new SQLConnection(connectionUrl);
+            result = sqlConnection.selectFunction("Exec Catalog_Prod", columnsName.length);
+        } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        Object[][] res = Arrays.stream(
+                result.split(";")
+        ).map(
+                i -> i.split(",")
+        ).toArray(Object[][]::new);
+
+        DataBaseTable tableFrame = new DataBaseTable(res, columnsName);
+
+        JFrame frame = new JFrame("Table");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        tableFrame.setOpaque(true);
+        frame.setContentPane(tableFrame);
+
+        frame.pack();
+        frame.setVisible(true);
+
     }
 
 }
