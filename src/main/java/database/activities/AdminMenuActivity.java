@@ -4,8 +4,6 @@ import database.Main;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.Arrays;
 
@@ -17,6 +15,7 @@ public class AdminMenuActivity extends JPanel {
     private final JButton catalogueButton = new JButton("Catalogue");
     private final JButton addAgentButton = new JButton("Add agent");
     private final JButton changeSalaryButton = new JButton("Change salary");
+    private final JButton deleteAgentButton = new JButton("Delete agent");
 
     public AdminMenuActivity() {
         initListeners();
@@ -39,6 +38,9 @@ public class AdminMenuActivity extends JPanel {
                 ex.printStackTrace();
             }
         });
+
+        deleteAgentButton.addActionListener(e -> {try {deleteAgent();} catch (SQLException ex) {ex.printStackTrace();}});
+
     }
 
     private void initContainer() {
@@ -55,6 +57,9 @@ public class AdminMenuActivity extends JPanel {
 
         changeSalaryButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         container.add(changeSalaryButton);
+
+        deleteAgentButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        container.add(deleteAgentButton);
 
     }
 
@@ -119,6 +124,22 @@ public class AdminMenuActivity extends JPanel {
         Main.frame.setContentPane(changeSalaryActivity);
         Main.frame.pack();
         Main.frame.setVisible(true);
+    }
+
+    private void deleteAgent() throws SQLException {
+
+        String result = Main.sqlConnection.selectFunction("Exec Catalog_Prod", 1);
+
+        String[] res = Arrays.stream(
+                result.split(";")
+        ).map(x -> x.substring(0, x.length() - 1)).toArray(String[]::new);
+
+        DeleteAgentActivity deleteAgentActivity = new DeleteAgentActivity(res);
+
+        Main.frame.setContentPane(deleteAgentActivity);
+        Main.frame.pack();
+        Main.frame.setVisible(true);
+
     }
 
 }
