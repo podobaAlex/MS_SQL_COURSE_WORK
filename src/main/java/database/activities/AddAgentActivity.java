@@ -1,12 +1,16 @@
-package database;
+package database.activities;
+
+import database.AlertJDialog;
+import database.Main;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.Objects;
 
-public class addAgentActivity extends JPanel {
+public class AddAgentActivity extends JPanel {
 
     private final JTextField agentFIO = new JTextField("FIO", 30);
     private final JTextField agentSalary = new JTextField("Salary", 30);
@@ -17,7 +21,7 @@ public class addAgentActivity extends JPanel {
     private final Container containerOfButtons = new Container();
     private final Container container = new Container();
 
-    public addAgentActivity() {
+    public AddAgentActivity() {
 
         initListeners();
         initContainer();
@@ -40,40 +44,44 @@ public class addAgentActivity extends JPanel {
     }
 
     private void initContainerOfButtons() {
+        containerOfButtons.setLayout(new BoxLayout(containerOfButtons, BoxLayout.X_AXIS));
         containerOfButtons.add(addAgentButton);
         containerOfButtons.add(backButton);
-
-        containerOfButtons.setLayout(new BoxLayout(containerOfButtons, BoxLayout.X_AXIS));
     }
 
     private void initListeners() {
-        addAgentButton.addActionListener(new ActionListener() {
-            @Override public void actionPerformed(ActionEvent e) {
-                addAgent(agentFIO.getText(), agentSalary.getText());}
+        addAgentButton.addActionListener(e -> {
+            try {
+                addAgent(agentFIO.getText(), agentSalary.getText());
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         });
 
-        backButton.addActionListener(new ActionListener() {
-            @Override public void actionPerformed(ActionEvent e) {onBack();}
-        });
+        backButton.addActionListener(e -> onBack());
     }
 
     private void onBack() {
-        Main.frame.setContentPane(new Menu());
+        Main.frame.setContentPane(new AdminMenuActivity());
         Main.frame.pack();
     }
 
-    private void addAgent(String FIO, String Salary) {
+    private void addAgent(String FIO, String salary) throws SQLException {
         if (Objects.equals(FIO, "")) {
             callAlert("Empty name");
             return;
         }
 
         try {
-            Integer.parseInt(Salary);
+            Integer.parseInt(salary);
         } catch (NumberFormatException e) {
             callAlert("Wrong number");
             return;
         }
+
+        FIO = "'" + FIO + "'";
+
+        Main.sqlConnection.insertFunction("Exec Add_Agent " + FIO + ", " + salary);
 
     }
 

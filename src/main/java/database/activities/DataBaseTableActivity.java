@@ -1,23 +1,20 @@
-package database;
+package database.activities;
+
+import database.Main;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-public class DataBaseTable extends JPanel {
+public class DataBaseTableActivity extends JPanel {
 
-    private Object[][] data;
-    private String[] columnName;
+    private final Object[][] data;
+    private final String[] columnName;
     private JTable DBTable;
-    private JButton backButton;
+    private final JButton backButton = new JButton("Back");
 
-    public DataBaseTable(Object[][] data, String[] columnName) {
+    public DataBaseTableActivity(Object[][] data, String[] columnName) {
         this.data = data;
         this.columnName = columnName;
         initTable();
@@ -28,10 +25,7 @@ public class DataBaseTable extends JPanel {
         DBTable.setPreferredScrollableViewportSize(new Dimension(500, 300));
         DBTable.setFillsViewportHeight(true);
 
-        backButton = new JButton("Back");
-        backButton.addActionListener(new ActionListener() {
-            @Override public void actionPerformed(ActionEvent e) {onBack();}
-        });
+        backButton.addActionListener(e -> onBack());
 
         JScrollPane scrollPane = new JScrollPane(DBTable);
         add(scrollPane);
@@ -40,7 +34,7 @@ public class DataBaseTable extends JPanel {
     }
 
     private void onBack() {
-        Main.frame.setContentPane(new Menu());
+        Main.frame.setContentPane(new AdminMenuActivity());
         Main.frame.pack();
     }
 

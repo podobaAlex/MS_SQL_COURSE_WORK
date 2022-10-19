@@ -29,4 +29,8 @@ public class SQLConnection {
         return result.toString();
     }
 
+    public void insertFunction(String command) throws SQLException {
+        this.statement.executeQuery(command);
+    }
+
 }

@@ -1,9 +1,9 @@
 package database;
 
+import database.activities.AdminMenuActivity;
+
 import javax.swing.*;
-import javax.swing.table.TableColumn;
 import java.sql.*;
-import java.util.Arrays;
 
 public class Main {
 
@@ -26,7 +26,7 @@ public class Main {
 
         frame = new JFrame("CourseWork");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setContentPane(new Menu());
+        frame.setContentPane(new AdminMenuActivity());
         frame.setSize(1000, 1000);
         frame.setVisible(true);
 

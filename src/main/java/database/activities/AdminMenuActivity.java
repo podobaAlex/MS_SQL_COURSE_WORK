@@ -1,4 +1,6 @@
-package database;
+package database.activities;
+
+import database.Main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,15 +9,16 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.Arrays;
 
-public class Menu extends JPanel {
+public class AdminMenuActivity extends JPanel {
 
     private final Container container = new Container();
 
     private final JButton statisticButton = new JButton("Statistic");
     private final JButton catalogueButton = new JButton("Catalogue");
     private final JButton addAgentButton = new JButton("Add agent");
+    private final JButton changeSalaryButton = new JButton("Change salary");
 
-    public Menu() {
+    public AdminMenuActivity() {
         initListeners();
         initContainer();
 
@@ -23,16 +26,18 @@ public class Menu extends JPanel {
     }
 
     private void initListeners() {
-        catalogueButton.addActionListener(new ActionListener() {
-            @Override public void actionPerformed(ActionEvent e)  { try {showCatalogue();} catch (SQLException er) {er.printStackTrace();}}
-        });
+        catalogueButton.addActionListener(e -> { try {showCatalogue();} catch (SQLException er) {er.printStackTrace();}});
 
-        statisticButton.addActionListener(new ActionListener() {
-            @Override public void actionPerformed(ActionEvent e)  { try {showStatistic();} catch (SQLException er) {er.printStackTrace();}}
-        });
+        statisticButton.addActionListener(e -> { try {showStatistic();} catch (SQLException er) {er.printStackTrace();}});
 
-        addAgentButton.addActionListener(new ActionListener() {
-            @Override public void actionPerformed(ActionEvent e)  { try {addAgent();} catch (SQLException er) {er.printStackTrace();}}
+        addAgentButton.addActionListener(e -> { try {addAgent();} catch (SQLException er) {er.printStackTrace();}});
+
+        changeSalaryButton.addActionListener(e -> {
+            try {
+                changeSalary();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         });
     }
 
@@ -42,18 +47,19 @@ public class Menu extends JPanel {
         catalogueButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         container.add(catalogueButton);
 
-        statisticButton.setPreferredSize(new Dimension(50, 100));
         statisticButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         container.add(statisticButton);
 
-        addAgentButton.setPreferredSize(new Dimension(50, 100));
         addAgentButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         container.add(addAgentButton);
+
+        changeSalaryButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        container.add(changeSalaryButton);
 
     }
 
     private void addAgent() throws SQLException {
-        addAgentActivity agentActivity = new addAgentActivity();
+        AddAgentActivity agentActivity = new AddAgentActivity();
         Main.frame.setContentPane(agentActivity);
         Main.frame.pack();
         Main.frame.setVisible(true);
@@ -61,8 +67,7 @@ public class Menu extends JPanel {
 
     private void showStatistic() throws SQLException {
         String[] columnsName = {"IdAgent", "FIO", "Salary", "RealizedOrders", "Cash","Orders"};
-        String result = null;
-        result = Main.sqlConnection.selectFunction("Exec Stat", columnsName.length);
+        String result = Main.sqlConnection.selectFunction("Exec Stat", columnsName.length);
 
         Object[][] res = Arrays.stream(
                 result.split(";")
@@ -70,7 +75,7 @@ public class Menu extends JPanel {
                 i -> i.split(",")
         ).toArray(Object[][]::new);
 
-        DataBaseTable tableFrame = new DataBaseTable(res, columnsName);
+        DataBaseTableActivity tableFrame = new DataBaseTableActivity(res, columnsName);
 
         tableFrame.setOpaque(true);
 
@@ -82,8 +87,7 @@ public class Menu extends JPanel {
     private void showCatalogue() throws SQLException {
 
         String[] columnsName = {"IdProd", "Name", "Num"};
-        String result = null;
-        result = Main.sqlConnection.selectFunction("Exec Catalog_Prod", columnsName.length);
+        String result = Main.sqlConnection.selectFunction("Exec Catalog_Prod", columnsName.length);
 
         Object[][] res = Arrays.stream(
                 result.split(";")
@@ -91,11 +95,28 @@ public class Menu extends JPanel {
                 i -> i.split(",")
         ).toArray(Object[][]::new);
 
-        DataBaseTable tableFrame = new DataBaseTable(res, columnsName);
+        DataBaseTableActivity tableFrame = new DataBaseTableActivity(res, columnsName);
 
         tableFrame.setOpaque(true);
 
         Main.frame.setContentPane(tableFrame);
+        Main.frame.pack();
+        Main.frame.setVisible(true);
+    }
+
+    private void changeSalary() throws SQLException {
+
+        String result = Main.sqlConnection.selectFunction("Exec Catalog_Prod", 1);
+
+        String[] res = Arrays.stream(
+                result.split(";")
+        ).map(x -> x.substring(0,x.length()-1)).toArray(String[]::new);
+
+        ChangeSalaryActivity changeSalaryActivity = new ChangeSalaryActivity(res);
+
+        changeSalaryActivity.setOpaque(true);
+
+        Main.frame.setContentPane(changeSalaryActivity);
         Main.frame.pack();
         Main.frame.setVisible(true);
     }
