@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 public class Main {
 
+    public static JFrame frame;
     public static SQLConnection sqlConnection;
 
     public static void main(String[] args) {
@@ -23,12 +24,11 @@ public class Main {
             e.printStackTrace();
         }
 
-        AdminMenu dialog = new AdminMenu();
-        dialog.pack();
-        dialog.setVisible(true);
-
-
-        //System.exit(0);
+        frame = new JFrame("CourseWork");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setContentPane(new Menu());
+        frame.setSize(1000, 1000);
+        frame.setVisible(true);
 
     }
 

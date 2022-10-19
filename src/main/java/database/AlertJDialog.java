@@ -1,0 +1,58 @@
+package database;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+public class AlertJDialog extends JDialog {
+
+    private final JTextArea errorName;
+    private final JButton OKButton = new JButton("OK");
+    private final Container container = new Container();
+
+    public AlertJDialog(String errorName) {
+
+        setModal(true);
+
+        this.errorName = new JTextArea("ERROR: " + errorName);
+        this.errorName.setEditable(false);
+
+        initContainer();
+        initListeners();
+
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                onOK();
+            }
+        });
+
+    }
+
+    private void initContainer() {
+        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+
+        errorName.setAlignmentX(Component.CENTER_ALIGNMENT);
+        container.add(errorName);
+
+        OKButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        container.add(OKButton);
+
+        add(container);
+
+    }
+
+    private void initListeners() {
+        OKButton.addActionListener(new ActionListener() {
+            @Override public void actionPerformed(ActionEvent e) {onOK();}
+        });;
+    }
+
+    public void onOK() {
+        dispose();
+    }
+
+}

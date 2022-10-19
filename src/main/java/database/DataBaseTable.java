@@ -15,6 +15,7 @@ public class DataBaseTable extends JPanel {
     private Object[][] data;
     private String[] columnName;
     private JTable DBTable;
+    private JButton backButton;
 
     public DataBaseTable(Object[][] data, String[] columnName) {
         this.data = data;
@@ -24,18 +25,23 @@ public class DataBaseTable extends JPanel {
 
     private void initTable() {
         DBTable = new JTable(this.data, this.columnName);
-        DBTable.setPreferredScrollableViewportSize(new Dimension(500, 500));
+        DBTable.setPreferredScrollableViewportSize(new Dimension(500, 300));
         DBTable.setFillsViewportHeight(true);
+
+        backButton = new JButton("Back");
+        backButton.addActionListener(new ActionListener() {
+            @Override public void actionPerformed(ActionEvent e) {onBack();}
+        });
 
         JScrollPane scrollPane = new JScrollPane(DBTable);
         add(scrollPane);
+        add(backButton);
 
     }
 
-    private void back() {
-        AdminMenu dialog = new AdminMenu();
-        dialog.pack();
-        dialog.setVisible(true);
+    private void onBack() {
+        Main.frame.setContentPane(new Menu());
+        Main.frame.pack();
     }
 
 }
