@@ -16,6 +16,9 @@ public class DataBaseTableActivity extends JPanel {
     public DataBaseTableActivity(Object[][] data, String[] columnName) {
         this.data = data;
         this.columnName = columnName;
+
+        setLayout(new BorderLayout());
+
         initTable();
     }
 
@@ -27,8 +30,8 @@ public class DataBaseTableActivity extends JPanel {
         backButton.addActionListener(e -> onBack());
 
         JScrollPane scrollPane = new JScrollPane(DBTable);
-        add(scrollPane);
-        add(backButton);
+        add(scrollPane, BorderLayout.CENTER);
+        add(backButton, BorderLayout.SOUTH);
 
     }
 

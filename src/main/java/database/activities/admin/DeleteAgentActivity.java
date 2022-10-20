@@ -44,10 +44,7 @@ public class DeleteAgentActivity extends JPanel {
 
     private void initListeners() {
 
-        comboBox.addActionListener(e -> {
-            JComboBox<String> cb = (JComboBox<String>)e.getSource();
-            selectedId = (String) cb.getSelectedItem();
-        });
+        comboBox.addActionListener(e -> selectedId = (String) comboBox.getSelectedItem());
 
         deleteButton.addActionListener(e -> {
             try {
@@ -85,6 +82,7 @@ public class DeleteAgentActivity extends JPanel {
         }
         Main.sqlConnection.insertFunction("Exec Del_Agent " + id);
         comboBox.removeItem(id);
+        //revalidate();
     }
 
     private void callAlert(String errorName) {

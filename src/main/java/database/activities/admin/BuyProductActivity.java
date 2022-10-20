@@ -41,7 +41,7 @@ public class BuyProductActivity extends JPanel {
 
     private void initContainer() {
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
-        container.setPreferredSize(new Dimension(250, 250));
+        container.setMaximumSize(new Dimension(250, 250));
         container.add(currentPane);
         initButtonsContainer();
         add(container, BorderLayout.CENTER);
@@ -137,6 +137,8 @@ public class BuyProductActivity extends JPanel {
             callAlert("Num less than 1");
             return;
         }
+
+        nameProduct = "'" + nameProduct + "'";
 
         Main.sqlConnection.insertFunction("Exec BuyProd "
                 + "@Name=" + nameProduct

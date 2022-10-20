@@ -44,10 +44,7 @@ public class ChangeSalaryActivity extends JPanel {
 
     private void initListeners() {
 
-        comboBox.addActionListener(e -> {
-            JComboBox<String> cb = (JComboBox<String>)e.getSource();
-            selectedId = (String) cb.getSelectedItem();
-        });
+        comboBox.addActionListener(e -> selectedId = (String) comboBox.getSelectedItem());
 
         changeButton.addActionListener(e -> {
             try {
@@ -89,12 +86,19 @@ public class ChangeSalaryActivity extends JPanel {
     }
 
     private void onChange(String id, String salary) throws SQLException {
+        int salaryInt;
         try {
-            Integer.parseInt(salary);
+            salaryInt = Integer.parseInt(salary);
         } catch (NumberFormatException e) {
             callAlert("Wrong number");
             return;
         }
+
+        if (salaryInt <= 0) {
+            callAlert("Salary less than 1");
+            return;
+        }
+
         Main.sqlConnection.insertFunction("Exec Change_Salary " + id + ", " + salary);
 
     }

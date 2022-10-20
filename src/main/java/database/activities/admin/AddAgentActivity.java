@@ -85,6 +85,8 @@ public class AddAgentActivity extends JPanel {
 
     private void callAlert(String errorName) {
         AlertJDialog alert = new AlertJDialog(errorName);
+        alert.pack();
+        alert.setVisible(true);
     }
 
 }

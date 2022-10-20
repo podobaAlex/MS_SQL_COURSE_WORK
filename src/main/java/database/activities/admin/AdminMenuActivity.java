@@ -18,44 +18,44 @@ public class AdminMenuActivity extends JPanel {
     private final JButton changeSalaryButton = new JButton("Change salary");
     private final JButton deleteAgentButton = new JButton("Delete agent");
     private final JButton buyProductButton = new JButton("Buy products");
+    private final JButton addProductToAgentButton = new JButton("Add product to agent");
 
     public AdminMenuActivity() {
+
+        setLayout(new BorderLayout());
         initListeners();
         initContainer();
 
-        add(container);
+    }
+
+    private void addButton(JButton button) {
+        button.setMaximumSize(new Dimension(200, 30));
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+        container.add(button);
     }
 
     private void initListeners() {
-        catalogueButton.addActionListener(e -> { try {showCatalogue();} catch (SQLException er) {er.printStackTrace();}});
-        statisticButton.addActionListener(e -> { try {showStatistic();} catch (SQLException er) {er.printStackTrace();}});
-        addAgentButton.addActionListener(e -> { try {addAgent();} catch (SQLException er) {er.printStackTrace();}});
+        catalogueButton.addActionListener(e -> { try {showCatalogue();} catch (SQLException ex) {ex.printStackTrace();}});
+        statisticButton.addActionListener(e -> { try {showStatistic();} catch (SQLException ex) {ex.printStackTrace();}});
+        addAgentButton.addActionListener(e -> { try {addAgent();} catch (SQLException ex) {ex.printStackTrace();}});
         changeSalaryButton.addActionListener(e -> { try {changeSalary();} catch (SQLException ex) {ex.printStackTrace();}});
         deleteAgentButton.addActionListener(e -> {try {deleteAgent();} catch (SQLException ex) {ex.printStackTrace();}});
         buyProductButton.addActionListener(e -> {try {buyProduct();} catch (SQLException ex) {ex.printStackTrace();}});
+        addProductToAgentButton.addActionListener(e -> {try {addProduct();} catch (SQLException ex) {ex.printStackTrace();}});
     }
 
     private void initContainer() {
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 
-        catalogueButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        container.add(catalogueButton);
+        addButton(statisticButton);
+        addButton(catalogueButton);
+        addButton(addAgentButton);
+        addButton(changeSalaryButton);
+        addButton(deleteAgentButton);
+        addButton(buyProductButton);
+        addButton(addProductToAgentButton);
 
-        statisticButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        container.add(statisticButton);
-
-        addAgentButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        container.add(addAgentButton);
-
-        changeSalaryButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        container.add(changeSalaryButton);
-
-        deleteAgentButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        container.add(deleteAgentButton);
-
-        buyProductButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        container.add(buyProductButton);
-
+        add(container, BorderLayout.CENTER);
     }
 
     private void addAgent() throws SQLException {
@@ -137,6 +137,15 @@ public class AdminMenuActivity extends JPanel {
         BuyProductActivity buyProductActivity = new BuyProductActivity();
 
         Main.frame.setContentPane(buyProductActivity);
+        Main.frame.setVisible(true);
+
+    }
+
+    private void addProduct() throws SQLException {
+
+        AddProductToAgentActivity addProductToAgentActivity = new AddProductToAgentActivity();
+
+        Main.frame.setContentPane(addProductToAgentActivity);
         Main.frame.setVisible(true);
 
     }

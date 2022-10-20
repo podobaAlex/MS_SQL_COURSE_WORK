@@ -46,9 +46,7 @@ public class AlertJDialog extends JDialog {
     }
 
     private void initListeners() {
-        OKButton.addActionListener(new ActionListener() {
-            @Override public void actionPerformed(ActionEvent e) {onOK();}
-        });;
+        OKButton.addActionListener(e -> onOK());
     }
 
     public void onOK() {
