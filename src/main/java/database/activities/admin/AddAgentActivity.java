@@ -1,12 +1,10 @@
-package database.activities;
+package database.activities.admin;
 
 import database.AlertJDialog;
 import database.Main;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.Objects;
 
@@ -63,7 +61,7 @@ public class AddAgentActivity extends JPanel {
 
     private void onBack() {
         Main.frame.setContentPane(new AdminMenuActivity());
-        Main.frame.pack();
+        Main.frame.setVisible(true);
     }
 
     private void addAgent(String FIO, String salary) throws SQLException {
@@ -87,8 +85,6 @@ public class AddAgentActivity extends JPanel {
 
     private void callAlert(String errorName) {
         AlertJDialog alert = new AlertJDialog(errorName);
-        alert.pack();
-        alert.setVisible(true);
     }
 
 }

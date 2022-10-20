@@ -1,11 +1,10 @@
 package database.activities;
 
 import database.Main;
+import database.activities.admin.AdminMenuActivity;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class DataBaseTableActivity extends JPanel {
 
@@ -35,7 +34,7 @@ public class DataBaseTableActivity extends JPanel {
 
     private void onBack() {
         Main.frame.setContentPane(new AdminMenuActivity());
-        Main.frame.pack();
+        Main.frame.setVisible(true);
     }
 
 }

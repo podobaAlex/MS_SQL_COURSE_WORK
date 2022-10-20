@@ -1,27 +1,24 @@
-package database.activities;
+package database.activities.admin;
 
 import database.AlertJDialog;
 import database.Main;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
-public class ChangeSalaryActivity extends JPanel {
+public class DeleteAgentActivity extends JPanel {
 
-    private final JButton changeButton = new JButton("Change");
+    private final JButton deleteButton = new JButton("Delete");
     private final JButton backButton = new JButton("Back");
 
-    private final JTextField salaryTextField = new JTextField("Salary");
     private final JComboBox<String> comboBox;
 
     private final Container container = new Container();
 
     private String selectedId;
 
-    public ChangeSalaryActivity(String[] IdAgents) {
+    public DeleteAgentActivity(String[] IdAgents) {
 
         comboBox = new JComboBox<>(IdAgents);
         comboBox.setEditable(false);
@@ -38,9 +35,10 @@ public class ChangeSalaryActivity extends JPanel {
 
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 
+        container.add(comboBox);
+
         initListeners();
         initFirstContainer();
-        initSecondContainer();
 
     }
 
@@ -51,16 +49,15 @@ public class ChangeSalaryActivity extends JPanel {
             selectedId = (String) cb.getSelectedItem();
         });
 
-        changeButton.addActionListener(e -> {
+        deleteButton.addActionListener(e -> {
             try {
-                onChange(selectedId, salaryTextField.getText());
+                onDelete(selectedId);
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
         });
 
         backButton.addActionListener(e -> onBack());
-
     }
 
     private void initFirstContainer() {
@@ -68,37 +65,26 @@ public class ChangeSalaryActivity extends JPanel {
         Container firstContainer = new Container();
 
         firstContainer.setLayout(new BoxLayout(firstContainer, BoxLayout.X_AXIS));
-        firstContainer.add(comboBox);
-        firstContainer.add(salaryTextField);
+        firstContainer.add(deleteButton);
+        firstContainer.add(backButton);
 
         container.add(firstContainer);
     }
 
-    private void initSecondContainer() {
-
-        Container secondContainer = new Container();
-
-        secondContainer.setLayout(new BoxLayout(secondContainer, BoxLayout.X_AXIS));
-        secondContainer.add(changeButton);
-        secondContainer.add(backButton);
-
-        container.add(secondContainer);
-    }
-
     private void onBack() {
         Main.frame.setContentPane(new AdminMenuActivity());
-        Main.frame.pack();
+        Main.frame.setVisible(true);
     }
 
-    private void onChange(String id, String salary) throws SQLException {
+    private void onDelete(String id) throws SQLException {
         try {
-            Integer.parseInt(salary);
+            Integer.parseInt(id);
         } catch (NumberFormatException e) {
             callAlert("Wrong number");
             return;
         }
-        Main.sqlConnection.insertFunction("Exec Change_Salary " + id + ", " + salary);
-
+        Main.sqlConnection.insertFunction("Exec Del_Agent " + id);
+        comboBox.removeItem(id);
     }
 
     private void callAlert(String errorName) {

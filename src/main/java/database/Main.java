@@ -1,6 +1,6 @@
 package database;
 
-import database.activities.AdminMenuActivity;
+import database.activities.admin.AdminMenuActivity;
 
 import javax.swing.*;
 import java.sql.*;

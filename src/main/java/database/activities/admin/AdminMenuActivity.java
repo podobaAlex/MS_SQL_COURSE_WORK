@@ -1,6 +1,7 @@
-package database.activities;
+package database.activities.admin;
 
 import database.Main;
+import database.activities.DataBaseTableActivity;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +17,7 @@ public class AdminMenuActivity extends JPanel {
     private final JButton addAgentButton = new JButton("Add agent");
     private final JButton changeSalaryButton = new JButton("Change salary");
     private final JButton deleteAgentButton = new JButton("Delete agent");
+    private final JButton buyProductButton = new JButton("Buy products");
 
     public AdminMenuActivity() {
         initListeners();
@@ -26,21 +28,11 @@ public class AdminMenuActivity extends JPanel {
 
     private void initListeners() {
         catalogueButton.addActionListener(e -> { try {showCatalogue();} catch (SQLException er) {er.printStackTrace();}});
-
         statisticButton.addActionListener(e -> { try {showStatistic();} catch (SQLException er) {er.printStackTrace();}});
-
         addAgentButton.addActionListener(e -> { try {addAgent();} catch (SQLException er) {er.printStackTrace();}});
-
-        changeSalaryButton.addActionListener(e -> {
-            try {
-                changeSalary();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        });
-
+        changeSalaryButton.addActionListener(e -> { try {changeSalary();} catch (SQLException ex) {ex.printStackTrace();}});
         deleteAgentButton.addActionListener(e -> {try {deleteAgent();} catch (SQLException ex) {ex.printStackTrace();}});
-
+        buyProductButton.addActionListener(e -> {try {buyProduct();} catch (SQLException ex) {ex.printStackTrace();}});
     }
 
     private void initContainer() {
@@ -61,12 +53,14 @@ public class AdminMenuActivity extends JPanel {
         deleteAgentButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         container.add(deleteAgentButton);
 
+        buyProductButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        container.add(buyProductButton);
+
     }
 
     private void addAgent() throws SQLException {
         AddAgentActivity agentActivity = new AddAgentActivity();
         Main.frame.setContentPane(agentActivity);
-        Main.frame.pack();
         Main.frame.setVisible(true);
     }
 
@@ -85,7 +79,6 @@ public class AdminMenuActivity extends JPanel {
         tableFrame.setOpaque(true);
 
         Main.frame.setContentPane(tableFrame);
-        Main.frame.pack();
         Main.frame.setVisible(true);
     }
 
@@ -105,13 +98,12 @@ public class AdminMenuActivity extends JPanel {
         tableFrame.setOpaque(true);
 
         Main.frame.setContentPane(tableFrame);
-        Main.frame.pack();
         Main.frame.setVisible(true);
     }
 
     private void changeSalary() throws SQLException {
 
-        String result = Main.sqlConnection.selectFunction("Exec Catalog_Prod", 1);
+        String result = Main.sqlConnection.selectFunction("Exec Stat", 1);
 
         String[] res = Arrays.stream(
                 result.split(";")
@@ -122,13 +114,12 @@ public class AdminMenuActivity extends JPanel {
         changeSalaryActivity.setOpaque(true);
 
         Main.frame.setContentPane(changeSalaryActivity);
-        Main.frame.pack();
         Main.frame.setVisible(true);
     }
 
     private void deleteAgent() throws SQLException {
 
-        String result = Main.sqlConnection.selectFunction("Exec Catalog_Prod", 1);
+        String result = Main.sqlConnection.selectFunction("Exec Stat", 1);
 
         String[] res = Arrays.stream(
                 result.split(";")
@@ -137,7 +128,15 @@ public class AdminMenuActivity extends JPanel {
         DeleteAgentActivity deleteAgentActivity = new DeleteAgentActivity(res);
 
         Main.frame.setContentPane(deleteAgentActivity);
-        Main.frame.pack();
+        Main.frame.setVisible(true);
+
+    }
+
+    private void buyProduct() throws SQLException {
+
+        BuyProductActivity buyProductActivity = new BuyProductActivity();
+
+        Main.frame.setContentPane(buyProductActivity);
         Main.frame.setVisible(true);
 
     }
