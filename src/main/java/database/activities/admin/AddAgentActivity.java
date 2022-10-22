@@ -4,22 +4,29 @@ import database.AlertJDialog;
 import database.Main;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.sql.SQLException;
 import java.util.Objects;
 
 public class AddAgentActivity extends JPanel {
 
-    private final JTextField agentFIO = new JTextField("FIO", 30);
-    private final JTextField agentSalary = new JTextField("Salary", 30);
+    private final JTextField agentFIO = new JTextField("Фамилия, Имя, Отчество (Инициалы):");
+    private final JTextField agentSalary = new JTextField("Зарплата:");
 
-    private final JButton addAgentButton = new JButton("Add");
-    private final JButton backButton = new JButton("Back");
+    private final JTextField agentFIOEnter = new JTextField("", 30);
+    private final JTextField agentSalaryEnter = new JTextField("", 30);
+
+    private final JButton addAgentButton = new JButton("Добавить");
+    private final JButton backButton = new JButton("Назад ");
 
     private final Container containerOfButtons = new Container();
     private final Container container = new Container();
 
     public AddAgentActivity() {
+
+        agentFIO.setEditable(false);
+        agentSalary.setEditable(false);
 
         initListeners();
         initContainer();
@@ -32,11 +39,29 @@ public class AddAgentActivity extends JPanel {
     private void initContainer() {
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 
-        agentFIO.setAlignmentX(Component.CENTER_ALIGNMENT);
-        container.add(agentFIO);
+        Container containerFIO = new Container();
+        containerFIO.setLayout(new BoxLayout(containerFIO, BoxLayout.X_AXIS));
+        agentFIO.setBorder(new EmptyBorder(0,0,0,0));
+        agentFIO.setSize(new Dimension(500, 30));
+        agentFIO.setHorizontalAlignment(SwingConstants.RIGHT);
+        containerFIO.add(agentFIO);
+        agentFIOEnter.setMaximumSize(new Dimension(300, 30));
+        containerFIO.add(agentFIOEnter);
 
-        agentSalary.setAlignmentX(Component.CENTER_ALIGNMENT);
-        container.add(agentSalary);
+        container.add(containerFIO);
+        container.add(Box.createRigidArea(new Dimension(0, 10)));
+
+        Container containerSalary = new Container();
+        containerSalary.setLayout(new BoxLayout(containerSalary, BoxLayout.X_AXIS));
+        agentSalary.setBorder(new EmptyBorder(0,0,0,0));
+        agentSalary.setSize(new Dimension(500, 30));
+        agentSalary.setHorizontalAlignment(SwingConstants.RIGHT);
+        containerSalary.add(agentSalary);
+        agentSalaryEnter.setMaximumSize(new Dimension(300, 30));
+        containerSalary.add(agentSalaryEnter);
+
+        container.add(containerSalary);
+        container.add(Box.createRigidArea(new Dimension(0, 10)));
 
         container.add(containerOfButtons);
     }
@@ -50,7 +75,7 @@ public class AddAgentActivity extends JPanel {
     private void initListeners() {
         addAgentButton.addActionListener(e -> {
             try {
-                addAgent(agentFIO.getText(), agentSalary.getText());
+                addAgent(agentFIOEnter.getText(), agentSalaryEnter.getText());
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }

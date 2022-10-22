@@ -19,10 +19,14 @@ public class AdminMenuActivity extends JPanel {
     private final JButton deleteAgentButton = new JButton("Delete agent");
     private final JButton buyProductButton = new JButton("Buy products");
     private final JButton addProductToAgentButton = new JButton("Add product to agent");
+    private final JButton categoryButton = new JButton("Category");
 
     public AdminMenuActivity() {
 
         setLayout(new BorderLayout());
+        add(Box.createRigidArea(new Dimension(0, 50)), BorderLayout.NORTH);
+        add(Box.createRigidArea(new Dimension(0, 50)), BorderLayout.SOUTH);
+
         initListeners();
         initContainer();
 
@@ -32,6 +36,7 @@ public class AdminMenuActivity extends JPanel {
         button.setMaximumSize(new Dimension(200, 30));
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         container.add(button);
+        container.add(Box.createRigidArea(new Dimension(0, 10)));
     }
 
     private void initListeners() {
@@ -42,6 +47,7 @@ public class AdminMenuActivity extends JPanel {
         deleteAgentButton.addActionListener(e -> {try {deleteAgent();} catch (SQLException ex) {ex.printStackTrace();}});
         buyProductButton.addActionListener(e -> {try {buyProduct();} catch (SQLException ex) {ex.printStackTrace();}});
         addProductToAgentButton.addActionListener(e -> {try {addProduct();} catch (SQLException ex) {ex.printStackTrace();}});
+        categoryButton.addActionListener(e -> category());
     }
 
     private void initContainer() {
@@ -54,6 +60,7 @@ public class AdminMenuActivity extends JPanel {
         addButton(deleteAgentButton);
         addButton(buyProductButton);
         addButton(addProductToAgentButton);
+        addButton(categoryButton);
 
         add(container, BorderLayout.CENTER);
     }
@@ -146,6 +153,15 @@ public class AdminMenuActivity extends JPanel {
         AddProductToAgentActivity addProductToAgentActivity = new AddProductToAgentActivity();
 
         Main.frame.setContentPane(addProductToAgentActivity);
+        Main.frame.setVisible(true);
+
+    }
+
+    private void category() {
+
+        CategoryActivity categoryActivity = new CategoryActivity();
+
+        Main.frame.setContentPane(categoryActivity);
         Main.frame.setVisible(true);
 
     }

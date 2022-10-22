@@ -11,15 +11,15 @@ import java.awt.event.ItemEvent;
 import java.sql.SQLException;
 
 public class BuyProductActivity extends JPanel {
-    private final JButton buyButton = new JButton("Buy");
-    private final JButton backButton = new JButton("Back");
+    private final JButton buyButton = new JButton("Купить");
+    private final JButton backButton = new JButton("Назад");
 
     private JPanel currentPane;
 
     private final Container container = new Container();
     private final Container buttonContainer = new Container();
 
-    private final JToggleButton switcher = new JToggleButton("New Product");
+    private final JToggleButton switcher = new JToggleButton("Новый продукт");
 
     public BuyProductActivity() throws SQLException {
 

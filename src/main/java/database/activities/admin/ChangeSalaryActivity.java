@@ -4,15 +4,19 @@ import database.AlertJDialog;
 import database.Main;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.sql.SQLException;
 
 public class ChangeSalaryActivity extends JPanel {
 
-    private final JButton changeButton = new JButton("Change");
-    private final JButton backButton = new JButton("Back");
+    private final JButton changeButton = new JButton("Изменить");
+    private final JButton backButton = new JButton("Назад");
 
-    private final JTextField salaryTextField = new JTextField("Salary");
+    private final JTextField salaryTextField = new JTextField("Зарплата:");
+    private final JTextField idAgentTextField = new JTextField("Номер Агента:");
+
+    private final JTextField salaryTextFieldEnter = new JTextField();
     private final JComboBox<String> comboBox;
 
     private final Container container = new Container();
@@ -27,6 +31,7 @@ public class ChangeSalaryActivity extends JPanel {
         selectedId = IdAgents[0];
 
         initContainer();
+        initListeners();
 
         add(container);
 
@@ -36,9 +41,11 @@ public class ChangeSalaryActivity extends JPanel {
 
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 
-        initListeners();
         initFirstContainer();
         initSecondContainer();
+        initButtonContainer();
+
+        System.out.println(idAgentTextField.getPreferredSize());
 
     }
 
@@ -48,7 +55,7 @@ public class ChangeSalaryActivity extends JPanel {
 
         changeButton.addActionListener(e -> {
             try {
-                onChange(selectedId, salaryTextField.getText());
+                onChange(selectedId, salaryTextFieldEnter.getText());
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -63,21 +70,43 @@ public class ChangeSalaryActivity extends JPanel {
         Container firstContainer = new Container();
 
         firstContainer.setLayout(new BoxLayout(firstContainer, BoxLayout.X_AXIS));
+
+        idAgentTextField.setEditable(false);
+        idAgentTextField.setHorizontalAlignment(SwingConstants.RIGHT);
+        idAgentTextField.setBorder(new EmptyBorder(0,0,0,0));
+        idAgentTextField.setPreferredSize(new Dimension(80,30));
+        firstContainer.add(idAgentTextField);
         firstContainer.add(comboBox);
-        firstContainer.add(salaryTextField);
 
         container.add(firstContainer);
+        container.add(Box.createRigidArea(new Dimension(0, 10)));
     }
 
     private void initSecondContainer() {
 
         Container secondContainer = new Container();
 
+        salaryTextField.setEditable(false);
+        salaryTextField.setHorizontalAlignment(SwingConstants.RIGHT);
+        salaryTextField.setBorder(new EmptyBorder(0,0,0,0));
+        salaryTextField.setPreferredSize(new Dimension(80,30));
         secondContainer.setLayout(new BoxLayout(secondContainer, BoxLayout.X_AXIS));
-        secondContainer.add(changeButton);
-        secondContainer.add(backButton);
+        secondContainer.add(salaryTextField);
+        secondContainer.add(salaryTextFieldEnter);
 
         container.add(secondContainer);
+        container.add(Box.createRigidArea(new Dimension(0, 10)));
+    }
+
+    private void initButtonContainer() {
+
+        Container buttonContainer = new Container();
+
+        buttonContainer.setLayout(new BoxLayout(buttonContainer, BoxLayout.X_AXIS));
+        buttonContainer.add(changeButton);
+        buttonContainer.add(backButton);
+
+        container.add(buttonContainer);
     }
 
     private void onBack() {

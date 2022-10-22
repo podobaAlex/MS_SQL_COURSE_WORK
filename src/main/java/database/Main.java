@@ -29,7 +29,7 @@ public class Main {
         frame.setContentPane(new AdminMenuActivity());
         frame.setSize(1000, 1000);
         frame.setVisible(true);
-
+        frame.setLocationRelativeTo(null);
     }
 
 }

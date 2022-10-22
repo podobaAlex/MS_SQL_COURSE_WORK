@@ -4,13 +4,16 @@ import database.AlertJDialog;
 import database.Main;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.sql.SQLException;
 
 public class DeleteAgentActivity extends JPanel {
 
-    private final JButton deleteButton = new JButton("Delete");
-    private final JButton backButton = new JButton("Back");
+    private final JButton deleteButton = new JButton("Удалить");
+    private final JButton backButton = new JButton("Назад");
+
+    private final JTextField idAgentTextField = new JTextField("Номер агента:");
 
     private final JComboBox<String> comboBox;
 
@@ -35,10 +38,9 @@ public class DeleteAgentActivity extends JPanel {
 
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 
-        container.add(comboBox);
-
         initListeners();
         initFirstContainer();
+        initButtonContainer();
 
     }
 
@@ -62,10 +64,26 @@ public class DeleteAgentActivity extends JPanel {
         Container firstContainer = new Container();
 
         firstContainer.setLayout(new BoxLayout(firstContainer, BoxLayout.X_AXIS));
-        firstContainer.add(deleteButton);
-        firstContainer.add(backButton);
+        idAgentTextField.setHorizontalAlignment(SwingConstants.RIGHT);
+        idAgentTextField.setEditable(false);
+        idAgentTextField.setBorder(new EmptyBorder(0,0,0,0));
+        firstContainer.add(idAgentTextField);
+        firstContainer.add(comboBox);
 
         container.add(firstContainer);
+        container.add(Box.createRigidArea(new Dimension(0, 10)));
+    }
+
+    private void initButtonContainer() {
+
+        Container buttonContainer = new Container();
+
+        buttonContainer.setLayout(new BoxLayout(buttonContainer, BoxLayout.X_AXIS));
+        buttonContainer.add(deleteButton);
+        buttonContainer.add(backButton);
+
+        container.add(buttonContainer);
+
     }
 
     private void onBack() {
@@ -82,7 +100,6 @@ public class DeleteAgentActivity extends JPanel {
         }
         Main.sqlConnection.insertFunction("Exec Del_Agent " + id);
         comboBox.removeItem(id);
-        //revalidate();
     }
 
     private void callAlert(String errorName) {

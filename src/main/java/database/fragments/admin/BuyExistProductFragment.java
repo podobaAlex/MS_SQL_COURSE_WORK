@@ -1,19 +1,22 @@
 package database.fragments.admin;
 
 import database.Main;
-import database.activities.admin.ChangeSalaryActivity;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.sql.SQLException;
 import java.util.Arrays;
 
 public class BuyExistProductFragment extends JPanel {
 
+    private final JTextField idProductTextField = new JTextField("Номер продукта:");
+    private final JTextField numProductTextField = new JTextField("Количество:");
+
     private final JComboBox<String> comboBox;
     private String selectedId;
 
-    private final JTextField numProductTextField = new JTextField("Num");
+    private final JTextField numProductTextFieldEntry = new JTextField();
 
     private final Container container = new Container();
 
@@ -42,19 +45,44 @@ public class BuyExistProductFragment extends JPanel {
 
         container.setLayout(new BoxLayout(container,BoxLayout.Y_AXIS));
 
-        comboBox.setAlignmentX(Component.CENTER_ALIGNMENT);
-        container.add(comboBox);
+        initFirstContainer();
+        initSecondContainer();
+    }
 
-        numProductTextField.setAlignmentX(Component.CENTER_ALIGNMENT);
-        container.add(numProductTextField);
+    private void initFirstContainer() {
+
+        Container newContainer = new Container();
+        newContainer.setLayout(new BoxLayout(newContainer, BoxLayout.X_AXIS));
+
+        idProductTextField.setHorizontalAlignment(SwingConstants.RIGHT);
+        idProductTextField.setBorder(new EmptyBorder(0, 0, 0, 0));
+        idProductTextField.setEditable(false);
+
+        newContainer.add(idProductTextField);
+        newContainer.add(comboBox);
+
+        container.add(newContainer);
+        container.add(Box.createRigidArea(new Dimension(0, 10)));
+    }
+
+    private void initSecondContainer() {
+
+        Container newContainer = new Container();
+        newContainer.setLayout(new BoxLayout(newContainer, BoxLayout.X_AXIS));
+
+        numProductTextField.setHorizontalAlignment(SwingConstants.RIGHT);
+        numProductTextField.setBorder(new EmptyBorder(0, 0, 0, 0));
+        numProductTextField.setEditable(false);
+
+        newContainer.add(numProductTextField);
+        newContainer.add(numProductTextFieldEntry);
+
+        container.add(newContainer);
     }
 
     private void initListeners() {
 
-        comboBox.addActionListener(e -> {
-            JComboBox<String> cb = (JComboBox<String>)e.getSource();
-            selectedId = (String)cb.getSelectedItem();
-        });
+        comboBox.addActionListener(e -> selectedId = (String) comboBox.getSelectedItem());
     }
 
     public String getSelectedId() {
@@ -62,7 +90,7 @@ public class BuyExistProductFragment extends JPanel {
     }
 
     public String getNumProduct() {
-        return numProductTextField.getText();
+        return numProductTextFieldEntry.getText();
     }
 
 }
