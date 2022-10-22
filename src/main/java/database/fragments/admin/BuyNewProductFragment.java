@@ -39,6 +39,7 @@ public class BuyNewProductFragment extends JPanel {
         newContainer.setLayout(new BoxLayout(newContainer, BoxLayout.X_AXIS));
         nameTextField.setHorizontalAlignment(SwingConstants.RIGHT);
         nameTextField.setEditable(false);
+        nameTextField.setPreferredSize(new Dimension(100, 30));
         nameTextField.setBorder(new EmptyBorder(0, 0, 0, 0));
         newContainer.add(nameTextField);
         nameTextFieldEnter.setPreferredSize(new Dimension(250, 30));
@@ -53,6 +54,7 @@ public class BuyNewProductFragment extends JPanel {
         buyCostTextField.setHorizontalAlignment(SwingConstants.RIGHT);
         buyCostTextField.setEditable(false);
         buyCostTextField.setBorder(new EmptyBorder(0, 0, 0, 0));
+        buyCostTextField.setPreferredSize(new Dimension(100, 30));
         newContainer.add(buyCostTextField);
         buyCostTextFieldEnter.setPreferredSize(new Dimension(250, 30));
         newContainer.add(buyCostTextFieldEnter);
@@ -66,6 +68,7 @@ public class BuyNewProductFragment extends JPanel {
         sellCostTextField.setHorizontalAlignment(SwingConstants.RIGHT);
         sellCostTextField.setEditable(false);
         sellCostTextField.setBorder(new EmptyBorder(0, 0, 0, 0));
+        sellCostTextField.setPreferredSize(new Dimension(100, 30));
         newContainer.add(sellCostTextField);
         sellCostTextFieldEnter.setPreferredSize(new Dimension(250, 30));
         newContainer.add(sellCostTextFieldEnter);
@@ -79,6 +82,7 @@ public class BuyNewProductFragment extends JPanel {
         numTextField.setHorizontalAlignment(SwingConstants.RIGHT);
         numTextField.setEditable(false);
         numTextField.setBorder(new EmptyBorder(0, 0, 0, 0));
+        numTextField.setPreferredSize(new Dimension(100, 30));
         newContainer.add(numTextField);
         numTextFieldEnter.setPreferredSize(new Dimension(250, 30));
         newContainer.add(numTextFieldEnter);

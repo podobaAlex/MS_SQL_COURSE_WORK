@@ -80,7 +80,29 @@ public class CategoryActivity extends JPanel {
     }
 
     private void onAdd() throws SQLException {
-        //TODO
+        if (currentPane instanceof AddNewCategoryFragment) {
+            addNewCategory((AddNewCategoryFragment) currentPane);
+        }
+        else if (currentPane instanceof AddCategoryToProductFragment) {
+            addCategoryToProduct((AddCategoryToProductFragment) currentPane);
+        }
+    }
+
+    private void addNewCategory(AddNewCategoryFragment fragment) throws SQLException {
+        String categoryName = fragment.getNameCategory();
+
+        Main.sqlConnection.insertFunction("Exec NewCategory " + categoryName);
+    }
+
+    private void addCategoryToProduct(AddCategoryToProductFragment fragment) throws SQLException {
+        String categoryId = fragment.getSelectedCategoryId();
+        String productId = fragment.getSelectedProductId();
+
+        Main.sqlConnection.insertFunction(
+                "Exec AddCategoryToProduct "
+                        + productId
+                        + ", " + categoryId
+        );
     }
 
     private void onBack() {
