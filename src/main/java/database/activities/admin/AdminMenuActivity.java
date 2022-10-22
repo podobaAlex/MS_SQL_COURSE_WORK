@@ -12,14 +12,14 @@ public class AdminMenuActivity extends JPanel {
 
     private final Container container = new Container();
 
-    private final JButton statisticButton = new JButton("Statistic");
-    private final JButton catalogueButton = new JButton("Catalogue");
-    private final JButton addAgentButton = new JButton("Add agent");
-    private final JButton changeSalaryButton = new JButton("Change salary");
-    private final JButton deleteAgentButton = new JButton("Delete agent");
-    private final JButton buyProductButton = new JButton("Buy products");
-    private final JButton addProductToAgentButton = new JButton("Add product to agent");
-    private final JButton categoryButton = new JButton("Category");
+    private final JButton statisticButton = new JButton("Статистика");
+    private final JButton catalogueButton = new JButton("Каталог");
+    private final JButton addAgentButton = new JButton("Добавить агента");
+    private final JButton changeSalaryButton = new JButton("Изменить зарпалту");
+    private final JButton deleteAgentButton = new JButton("Удалить агента");
+    private final JButton buyProductButton = new JButton("Купить продукты");
+    private final JButton addProductToAgentButton = new JButton("Закрепить продукт за агентом");
+    private final JButton categoryButton = new JButton("Категории");
 
     public AdminMenuActivity() {
 
@@ -33,7 +33,7 @@ public class AdminMenuActivity extends JPanel {
     }
 
     private void addButton(JButton button) {
-        button.setMaximumSize(new Dimension(200, 30));
+        button.setMaximumSize(new Dimension(400, 30));
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         container.add(button);
         container.add(Box.createRigidArea(new Dimension(0, 10)));
