@@ -4,14 +4,18 @@ import database.AlertJDialog;
 import database.Main;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.sql.SQLException;
 import java.util.Arrays;
 
 public class AddProductToAgentActivity extends JPanel {
 
-    private final JButton addProductButton = new JButton("Add Product");
-    private final JButton backButton = new JButton("Back");
+    private final JButton addProductButton = new JButton("Добавить");
+    private final JButton backButton = new JButton("Назад");
+
+    private final JTextField idAgentTextField = new JTextField("Номер агента:");
+    private final JTextField idProdTextField = new JTextField("Номер продукта:");
 
     private final JComboBox<String> idAgentComboBox;
     private final JComboBox<String> idProdComboBox;
@@ -19,7 +23,9 @@ public class AddProductToAgentActivity extends JPanel {
     private String selectedIdAgent;
     private String selectedIdProduct;
 
-    private final JTextField numProductTextField = new JTextField("Number");
+    private final JTextField numProductTextField = new JTextField("Количество:");
+
+    private final JTextField numProductTextFieldEnter = new JTextField();
 
     private final Container container = new Container();
     private final Container buttonContainer = new Container();
@@ -50,7 +56,7 @@ public class AddProductToAgentActivity extends JPanel {
         idProdComboBox.addItemListener(e -> selectedIdProduct = (String) idProdComboBox.getSelectedItem());
         addProductButton.addActionListener(e -> {
             try {
-                addProduct(selectedIdAgent, selectedIdProduct, numProductTextField.getText());
+                addProduct(selectedIdAgent, selectedIdProduct, numProductTextFieldEnter.getText());
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -67,12 +73,63 @@ public class AddProductToAgentActivity extends JPanel {
         idProdComboBox.setAlignmentX(CENTER_ALIGNMENT);
         container.add(idProdComboBox);
 
-        numProductTextField.setAlignmentX(CENTER_ALIGNMENT);
-        container.add(numProductTextField);
+        numProductTextFieldEnter.setAlignmentX(CENTER_ALIGNMENT);
+        container.add(numProductTextFieldEnter);
 
+        initFirstContainer();
+        initSecondContainer();
+        initThirdContainer();
         initButtonContainer();
 
         add(container);
+    }
+
+    private void initFirstContainer() {
+
+        Container newContainer = new Container();
+        newContainer.setLayout(new BoxLayout(newContainer, BoxLayout.X_AXIS));
+
+        idAgentTextField.setEditable(false);
+        idAgentTextField.setBorder(new EmptyBorder(0, 0, 0, 0));
+        idAgentTextField.setHorizontalAlignment(SwingConstants.RIGHT);
+        idAgentTextField.setPreferredSize(new Dimension(100, 26));
+        newContainer.add(idAgentTextField);
+        idAgentComboBox.setPreferredSize(new Dimension(50, 26));
+        newContainer.add(idAgentComboBox);
+        container.add(newContainer);
+        container.add(Box.createRigidArea(new Dimension(0, 10)));
+    }
+
+    private void initSecondContainer() {
+
+        Container newContainer = new Container();
+        newContainer.setLayout(new BoxLayout(newContainer, BoxLayout.X_AXIS));
+
+        idProdTextField.setEditable(false);
+        idProdTextField.setBorder(new EmptyBorder(0,0,0,0));
+        idProdTextField.setHorizontalAlignment(SwingConstants.RIGHT);
+        idProdTextField.setPreferredSize(new Dimension(100, 26));
+        newContainer.add(idProdTextField);
+        idProdComboBox.setPreferredSize(new Dimension(50, 26));
+        newContainer.add(idProdComboBox);
+        container.add(newContainer);
+        container.add(Box.createRigidArea(new Dimension(0, 10)));
+    }
+
+    private void initThirdContainer() {
+
+        Container newContainer = new Container();
+        newContainer.setLayout(new BoxLayout(newContainer, BoxLayout.X_AXIS));
+
+        numProductTextField.setEditable(false);
+        numProductTextField.setBorder(new EmptyBorder(0, 0, 0, 0));
+        numProductTextField.setHorizontalAlignment(SwingConstants.RIGHT);
+        numProductTextField.setPreferredSize(new Dimension(100, 26));
+        newContainer.add(numProductTextField);
+        numProductTextFieldEnter.setPreferredSize(new Dimension(50, 26));
+        newContainer.add(numProductTextFieldEnter);
+        container.add(newContainer);
+        container.add(Box.createRigidArea(new Dimension(0, 10)));
     }
 
     private void initButtonContainer() {
@@ -117,14 +174,6 @@ public class AddProductToAgentActivity extends JPanel {
         AlertJDialog alert = new AlertJDialog(errorName);
         alert.pack();
         alert.setVisible(true);
-    }
-
-    public String getIdAgent() {
-        return selectedIdAgent;
-    }
-
-    public String getIdProduct() {
-        return selectedIdProduct;
     }
 
 }

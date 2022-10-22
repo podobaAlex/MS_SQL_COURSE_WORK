@@ -98,7 +98,11 @@ public class DeleteAgentActivity extends JPanel {
             callAlert("Wrong number");
             return;
         }
-        Main.sqlConnection.insertFunction("Exec Del_Agent " + id);
+        try {
+            Main.sqlConnection.insertFunction("Exec Del_Agent " + id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         comboBox.removeItem(id);
     }
 
