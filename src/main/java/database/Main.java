@@ -1,5 +1,6 @@
 package database;
 
+import database.activities.admin.AdminMenuActivity;
 import database.activities.user.UserMenuActivity;
 
 import javax.swing.*;

@@ -1,11 +1,9 @@
 package database;
 
-import database.activities.admin.AdminMenuActivity;
-import database.activities.user.UserMenuActivity;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.Vector;
 
 public class DataBaseTable extends JPanel {
     private final Object[][] data;
@@ -43,7 +41,24 @@ public class DataBaseTable extends JPanel {
 
     }
 
+    public Object[] getSelectedRow(int index) {
+        return data[index];
+    }
+
+    public void addRow(Object[] obj) {
+        model.addRow(obj);
+    }
+
     public String getInfo(int row, int column) {
         return (String) data[row][column];
     }
+
+    public Vector<Vector> getData() {
+        return model.getDataVector();
+    }
+
+    public void clear() {
+        model.setDataVector(new Object[][]{}, columnName);
+    }
+
 }

@@ -2,27 +2,25 @@ package database.activities.user;
 
 import database.DataBaseTable;
 import database.Main;
-import database.activities.DataBaseTableActivity;
-import database.activities.admin.AdminMenuActivity;
 
 import javax.swing.*;
+import java.awt.*;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Objects;
 
 public class ShowOrdersActivity extends JPanel {
-    private JPanel mainPanel;
     private DataBaseTable tableFrame;
-    private JButton takeReadyOrderButton;
-    private JButton cancelOrderButton;
-    private JButton backButton;
+    private final JButton takeReadyOrderButton = new JButton("Взять готовый заказ");
+    private final JButton cancelOrderButton = new JButton("Отменить заказ");
+    private final JButton backButton = new JButton("Назад");
 
     public ShowOrdersActivity() throws SQLException {
+        setLayout(new BorderLayout());
 
         initListeners();
         initTable();
-
-        add(mainPanel);
+        initButtonContainer();
     }
 
     private void initListeners() {
@@ -47,7 +45,16 @@ public class ShowOrdersActivity extends JPanel {
 
         tableFrame.setOpaque(true);
 
-        add(tableFrame, 0);
+        add(tableFrame, BorderLayout.CENTER);
+    }
+
+    private void initButtonContainer() {
+        Container buttonContainer = new Container();
+        buttonContainer.setLayout(new BoxLayout(buttonContainer, BoxLayout.X_AXIS));
+        buttonContainer.add(takeReadyOrderButton);
+        buttonContainer.add(cancelOrderButton);
+        buttonContainer.add(backButton);
+        add(buttonContainer, BorderLayout.SOUTH);
     }
 
     private void takeReadyOrder() {

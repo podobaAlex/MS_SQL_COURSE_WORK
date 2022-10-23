@@ -33,4 +33,13 @@ public class SQLConnection {
         this.statement.executeQuery(command);
     }
 
+    public String insertFunctionWithResult(String command) throws  SQLException {
+        ResultSet resultSet = this.statement.executeQuery(command);
+        System.out.println(resultSet);
+
+        resultSet.next();
+        return resultSet.getString(1);
+
+    }
+
 }
