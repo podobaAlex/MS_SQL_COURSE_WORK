@@ -22,7 +22,7 @@ public class SQLConnection {
 
         while (resultSet.next()) {
             for (int i = 1; i <= columnsLength; i++) {
-                result.append(resultSet.getString(i)).append(",");
+                result.append(resultSet.getString(i)).append("_");
             }
             result.append(";");
         }

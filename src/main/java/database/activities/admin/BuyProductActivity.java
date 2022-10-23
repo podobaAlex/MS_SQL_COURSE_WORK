@@ -1,6 +1,6 @@
 package database.activities.admin;
 
-import database.AlertJDialog;
+import database.dialogs.AlertDialog;
 import database.Main;
 import database.fragments.admin.BuyExistProductFragment;
 import database.fragments.admin.BuyNewProductFragment;
@@ -155,7 +155,7 @@ public class BuyProductActivity extends JPanel {
     }
 
     private void callAlert(String errorName) {
-        AlertJDialog alert = new AlertJDialog(errorName);
+        AlertDialog alert = new AlertDialog(errorName);
         alert.pack();
         alert.setVisible(true);
     }

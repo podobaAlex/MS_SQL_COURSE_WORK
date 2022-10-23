@@ -78,7 +78,7 @@ public class AdminMenuActivity extends JPanel {
         Object[][] res = Arrays.stream(
                 result.split(";")
         ).map(
-                i -> i.split(",")
+                i -> i.split("_")
         ).toArray(Object[][]::new);
 
         DataBaseTableActivity tableFrame = new DataBaseTableActivity(res, columnsName);
@@ -97,7 +97,7 @@ public class AdminMenuActivity extends JPanel {
         Object[][] res = Arrays.stream(
                 result.split(";")
         ).map(
-                i -> i.split(",")
+                i -> i.split("_")
         ).toArray(Object[][]::new);
 
         DataBaseTableActivity tableFrame = new DataBaseTableActivity(res, columnsName);

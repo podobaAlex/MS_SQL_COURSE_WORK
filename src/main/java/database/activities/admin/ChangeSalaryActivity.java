@@ -1,6 +1,6 @@
 package database.activities.admin;
 
-import database.AlertJDialog;
+import database.dialogs.AlertDialog;
 import database.Main;
 
 import javax.swing.*;
@@ -133,7 +133,7 @@ public class ChangeSalaryActivity extends JPanel {
     }
 
     private void callAlert(String errorName) {
-        AlertJDialog alert = new AlertJDialog(errorName);
+        AlertDialog alert = new AlertDialog(errorName);
         alert.pack();
         alert.setVisible(true);
     }

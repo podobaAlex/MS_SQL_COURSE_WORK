@@ -1,4 +1,4 @@
-package database;
+package database.dialogs;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,13 +7,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class AlertJDialog extends JDialog {
+public class AlertDialog extends JDialog {
 
     private final JTextArea errorName;
     private final JButton OKButton = new JButton("OK");
     private final Container container = new Container();
 
-    public AlertJDialog(String errorName) {
+    public AlertDialog(String errorName) {
 
         setModal(true);
 
