@@ -6,7 +6,7 @@ import java.awt.*;
 import java.util.Vector;
 
 public class DataBaseTable extends JPanel {
-    private final Object[][] data;
+    private Object[][] data;
     private final String[] columnName;
     private JTable DBTable;
     private DefaultTableModel model;
@@ -55,6 +55,11 @@ public class DataBaseTable extends JPanel {
 
     public Vector<Vector> getData() {
         return model.getDataVector();
+    }
+
+    public void updateRow(int index, Object[] objects) {
+        model.removeRow(index);
+        model.insertRow(index, objects);
     }
 
     public void clear() {

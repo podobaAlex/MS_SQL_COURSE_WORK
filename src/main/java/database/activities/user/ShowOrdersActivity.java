@@ -39,8 +39,6 @@ public class ShowOrdersActivity extends JPanel {
                 i -> i.split("_")
         ).toArray(String[][]::new);
 
-        //res = Arrays.stream(res).filter(i -> Objects.equals(i[6], "Готово. Ожидает заказчика")).toArray(String[][]::new);
-
         tableFrame = new DataBaseTable(res, columnsName);
 
         tableFrame.setOpaque(true);

@@ -1,6 +1,7 @@
 package database;
 
 import database.activities.admin.AdminMenuActivity;
+import database.activities.agent.AgentMenuActivity;
 import database.activities.user.UserMenuActivity;
 
 import javax.swing.*;
@@ -12,9 +13,9 @@ public class Main {
     public static final int AGENT_ROLE = 1;
     public static final int USER_ROLE = 2;
 
-    private static int currentRole = 2;
+    private static int currentRole = 1;
 
-    public static int USERID = 3;
+    public static int USERID = 1;
     public static JFrame frame;
     public static SQLConnection sqlConnection;
 
@@ -34,7 +35,7 @@ public class Main {
 
         frame = new JFrame("CourseWork");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setContentPane(new UserMenuActivity());
+        frame.setContentPane(new AgentMenuActivity());
         frame.setSize(1000, 1000);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
