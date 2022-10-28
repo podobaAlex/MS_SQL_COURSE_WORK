@@ -85,8 +85,8 @@ public class AddAgentActivity extends JPanel {
     }
 
     private void onBack() {
-        Main.frame.setContentPane(new AdminMenuActivity());
-        Main.frame.setVisible(true);
+        Main.frameAdmin.setContentPane(new AdminMenuActivity());
+        Main.frameAdmin.setVisible(true);
     }
 
     private void addAgent(String FIO, String salary) throws SQLException {

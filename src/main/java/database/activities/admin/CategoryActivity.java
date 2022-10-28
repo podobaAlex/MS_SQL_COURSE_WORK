@@ -106,8 +106,8 @@ public class CategoryActivity extends JPanel {
     }
 
     private void onBack() {
-        Main.frame.setContentPane(new AdminMenuActivity());
-        Main.frame.setVisible(true);
+        Main.frameAdmin.setContentPane(new AdminMenuActivity());
+        Main.frameAdmin.setVisible(true);
     }
 
 }

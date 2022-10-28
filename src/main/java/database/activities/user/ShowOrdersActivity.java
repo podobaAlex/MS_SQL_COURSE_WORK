@@ -100,8 +100,8 @@ public class ShowOrdersActivity extends JPanel {
     }
 
     private void onBack() {
-        Main.frame.setContentPane(new UserMenuActivity());
-        Main.frame.setVisible(true);
+        Main.frameUser.setContentPane(new UserMenuActivity());
+        Main.frameUser.setVisible(true);
     }
 
 }

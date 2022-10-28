@@ -27,22 +27,22 @@ public class UserMenuActivity extends JPanel {
     private void catalogue() throws SQLException {
         UserCatalogueActivity userCatalogueActivity = new UserCatalogueActivity();
 
-        Main.frame.setContentPane(userCatalogueActivity);
-        Main.frame.setVisible(true);
+        Main.frameUser.setContentPane(userCatalogueActivity);
+        Main.frameUser.setVisible(true);
     }
 
     private void showOrders() throws SQLException {
         ShowOrdersActivity showOrdersActivity = new ShowOrdersActivity();
 
-        Main.frame.setContentPane(showOrdersActivity);
-        Main.frame.setVisible(true);
+        Main.frameUser.setContentPane(showOrdersActivity);
+        Main.frameUser.setVisible(true);
     }
 
     private void makeOrder() throws SQLException {
         UserMakeOrderActivity userMakeOrderActivity = new UserMakeOrderActivity();
 
-        Main.frame.setContentPane(userMakeOrderActivity);
-        Main.frame.setVisible(true);
+        Main.frameUser.setContentPane(userMakeOrderActivity);
+        Main.frameUser.setVisible(true);
     }
 
 }

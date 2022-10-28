@@ -41,20 +41,8 @@ public class DataBaseTableActivity extends JPanel {
     }
 
     private void onBack() {
-        JPanel pane;
-        switch (Main.getCurrentRole()) {
-            case Main.ADMIN_ROLE:
-                pane = new AdminMenuActivity();
-                break;
-            //case Main.AGENT_ROLE:
-                //TODO
-                //break;
-            default:
-                pane = new UserMenuActivity();
-                break;
-        }
-        Main.frame.setContentPane(pane);
-        Main.frame.setVisible(true);
+        Main.frameAdmin.setContentPane(new AdminMenuActivity());
+        Main.frameAdmin.setVisible(true);
     }
 
     public int[] getSelected() {

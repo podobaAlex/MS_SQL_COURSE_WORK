@@ -57,6 +57,12 @@ public class AddProductDialog extends JDialog {
             return;
         }
         dispose();
+        Main.sqlConnection.insertFunction(
+                "Exec AddProd "
+                        + Main.USERID
+                        + "," + productId
+                        + "," + numberTextField.getText()
+                );
     }
 
     private void showAlert(String errorName) {

@@ -94,8 +94,8 @@ public class ProductsActivity extends JPanel {
     }
 
     private void onBack() {
-        Main.frame.setContentPane(new AgentMenuActivity());
-        Main.frame.setVisible(true);
+        Main.frameAgent.setContentPane(new AgentMenuActivity());
+        Main.frameAgent.setVisible(true);
     }
 
 }

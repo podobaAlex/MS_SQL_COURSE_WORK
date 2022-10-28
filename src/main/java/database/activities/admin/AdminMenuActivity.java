@@ -67,8 +67,8 @@ public class AdminMenuActivity extends JPanel {
 
     private void addAgent() throws SQLException {
         AddAgentActivity agentActivity = new AddAgentActivity();
-        Main.frame.setContentPane(agentActivity);
-        Main.frame.setVisible(true);
+        Main.frameAdmin.setContentPane(agentActivity);
+        Main.frameAdmin.setVisible(true);
     }
 
     private void showStatistic() throws SQLException {
@@ -85,8 +85,8 @@ public class AdminMenuActivity extends JPanel {
 
         tableFrame.setOpaque(true);
 
-        Main.frame.setContentPane(tableFrame);
-        Main.frame.setVisible(true);
+        Main.frameAdmin.setContentPane(tableFrame);
+        Main.frameAdmin.setVisible(true);
     }
 
     private void showCatalogue() throws SQLException {
@@ -104,8 +104,8 @@ public class AdminMenuActivity extends JPanel {
 
         tableFrame.setOpaque(true);
 
-        Main.frame.setContentPane(tableFrame);
-        Main.frame.setVisible(true);
+        Main.frameAdmin.setContentPane(tableFrame);
+        Main.frameAdmin.setVisible(true);
     }
 
     private void changeSalary() throws SQLException {
@@ -120,8 +120,8 @@ public class AdminMenuActivity extends JPanel {
 
         changeSalaryActivity.setOpaque(true);
 
-        Main.frame.setContentPane(changeSalaryActivity);
-        Main.frame.setVisible(true);
+        Main.frameAdmin.setContentPane(changeSalaryActivity);
+        Main.frameAdmin.setVisible(true);
     }
 
     private void deleteAgent() throws SQLException {
@@ -134,8 +134,8 @@ public class AdminMenuActivity extends JPanel {
 
         DeleteAgentActivity deleteAgentActivity = new DeleteAgentActivity(res);
 
-        Main.frame.setContentPane(deleteAgentActivity);
-        Main.frame.setVisible(true);
+        Main.frameAdmin.setContentPane(deleteAgentActivity);
+        Main.frameAdmin.setVisible(true);
 
     }
 
@@ -143,8 +143,8 @@ public class AdminMenuActivity extends JPanel {
 
         BuyProductActivity buyProductActivity = new BuyProductActivity();
 
-        Main.frame.setContentPane(buyProductActivity);
-        Main.frame.setVisible(true);
+        Main.frameAdmin.setContentPane(buyProductActivity);
+        Main.frameAdmin.setVisible(true);
 
     }
 
@@ -152,8 +152,8 @@ public class AdminMenuActivity extends JPanel {
 
         AddProductToAgentActivity addProductToAgentActivity = new AddProductToAgentActivity();
 
-        Main.frame.setContentPane(addProductToAgentActivity);
-        Main.frame.setVisible(true);
+        Main.frameAdmin.setContentPane(addProductToAgentActivity);
+        Main.frameAdmin.setVisible(true);
 
     }
 
@@ -161,8 +161,8 @@ public class AdminMenuActivity extends JPanel {
 
         CategoryActivity categoryActivity = new CategoryActivity();
 
-        Main.frame.setContentPane(categoryActivity);
-        Main.frame.setVisible(true);
+        Main.frameAdmin.setContentPane(categoryActivity);
+        Main.frameAdmin.setVisible(true);
 
     }
 

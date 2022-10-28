@@ -17,8 +17,6 @@ public class CommentDialog extends JDialog {
 
     public CommentDialog(String productId) {
 
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-
         initListeners();
         initContainer();
 

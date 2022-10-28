@@ -37,15 +37,15 @@ public class AgentMenuActivity extends JPanel{
     private void showOrders() throws SQLException {
         ShowOrdersActivity showOrdersActivity = new ShowOrdersActivity();
 
-        Main.frame.setContentPane(showOrdersActivity);
-        Main.frame.setVisible(true);
+        Main.frameAgent.setContentPane(showOrdersActivity);
+        Main.frameAgent.setVisible(true);
     }
 
     private void addProduct() throws SQLException {
         ProductsActivity productsActivity = new ProductsActivity();
 
-        Main.frame.setContentPane(productsActivity);
-        Main.frame.setVisible(true);
+        Main.frameAgent.setContentPane(productsActivity);
+        Main.frameAgent.setVisible(true);
     }
 
 }
