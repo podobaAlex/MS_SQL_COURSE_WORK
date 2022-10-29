@@ -79,7 +79,6 @@ public class ProductsActivity extends JPanel {
         Arrays.stream(selected).forEach(i -> {
             Object[] objects = dbTable.getSelectedRow(i);
             JFrame frame = new JFrame((String) objects[1]);
-            //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             try {
                 frame.setContentPane(new ShowCommentsActivity((String) objects[0]));
             } catch (SQLException e) {

@@ -12,10 +12,11 @@ import java.util.Arrays;
 
 public class UserCatalogueActivity extends JPanel {
 
-    private DataBaseTable tablePane;
-
-    private final JButton backButton = new JButton("Назад");
     private final JButton commentaryButton = new JButton("Оставить комментарий");
+    private final JButton showCommentsButton = new JButton("Показать комментарии");
+    private final JButton backButton = new JButton("Назад");
+
+    private DataBaseTable tablePane;
 
     public UserCatalogueActivity() throws SQLException {
 
@@ -30,16 +31,18 @@ public class UserCatalogueActivity extends JPanel {
     }
 
     private void initListeners() {
-        backButton.addActionListener(e -> onBack());
         commentaryButton.addActionListener(e -> onComment());
+        showCommentsButton.addActionListener(e -> onShowComment());
+        backButton.addActionListener(e -> onBack());
     }
 
     private void initContainer() {
         Container container = new Container();
         container.setLayout(new BoxLayout(container, BoxLayout.X_AXIS));
         backButton.setAlignmentX(CENTER_ALIGNMENT);
-        container.add(backButton);
         container.add(commentaryButton);
+        container.add(showCommentsButton);
+        container.add(backButton);
         add(container, BorderLayout.SOUTH);
     }
 
@@ -66,6 +69,23 @@ public class UserCatalogueActivity extends JPanel {
         CommentDialog comment = new CommentDialog(tablePane.getInfo(selected[0],0));
         comment.pack();
         comment.setVisible(true);
+    }
+
+    private void onShowComment() {
+        int[] selected = tablePane.getSelected();
+
+        Arrays.stream(selected).forEach(i -> {
+            try {
+                JFrame frame = new JFrame(tablePane.getInfo(i, 1));
+                frame.setContentPane(new ShowCommentsActivity(tablePane.getInfo(i, 0)));
+                frame.setVisible(true);
+                frame.setSize(new Dimension(500, 500));
+                frame.setLocationRelativeTo(null);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
+
     }
 
     private void onBack() {
