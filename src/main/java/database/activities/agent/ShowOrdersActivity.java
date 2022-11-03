@@ -29,7 +29,7 @@ public class ShowOrdersActivity extends JPanel {
     }
 
     private void initTable() throws SQLException {
-        String[] columnsName = {"IdOrder", "IdAgent", "IdUser", "IdStatus"};
+        String[] columnsName = {"IdOrder", "IdAgent", "IdUser", "Status"};
         String result = Main.sqlConnection.selectFunction("Exec ShowNullOrAgentsOrders " + Main.USERID, columnsName.length);
 
         String[][] res = Arrays.stream(
@@ -66,14 +66,14 @@ public class ShowOrdersActivity extends JPanel {
         int[] selected = dbTable.getSelected();
         Arrays.stream(selected).forEach(i -> {
             Object[] changed = dbTable.getSelectedRow(i);
-            if (Objects.equals(changed[3], "1") || Objects.equals(changed[3], "3")) {
+            if (Objects.equals(changed[3], "Ожидает оформления") || Objects.equals(changed[3], "Отказ. Ожидание нового оформления")) {
                 try {
                     Main.sqlConnection.insertFunction("Exec MakeOrder " + Main.USERID + "," + dbTable.getInfo(i, 0));
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
                 changed[1] = Integer.toString(Main.USERID);
-                changed[3] = "5";
+                changed[3] = "Выполняется";
                 dbTable.updateRow(i, changed);
             }
         });
@@ -83,13 +83,13 @@ public class ShowOrdersActivity extends JPanel {
         int[] selected = dbTable.getSelected();
         Arrays.stream(selected).forEach(i -> {
             Object[] changed = dbTable.getSelectedRow(i);
-            if (Objects.equals(changed[3], "5")) {
+            if (Objects.equals(changed[3], "Выполняется")) {
                 try {
                     Main.sqlConnection.insertFunction("Exec CloseOrder " + Main.USERID + "," + dbTable.getInfo(i, 0));
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-                changed[3] = "2";
+                changed[3] = "Готово. Ожидает заказчика";
                 dbTable.updateRow(i, changed);
             }
         });
@@ -99,14 +99,14 @@ public class ShowOrdersActivity extends JPanel {
         int[] selected = dbTable.getSelected();
         Arrays.stream(selected).forEach(i -> {
             Object[] changed = dbTable.getSelectedRow(i);
-            if (Objects.equals(changed[3], "5")) {
+            if (Objects.equals(changed[3], "Выполняется")) {
                 try {
                     Main.sqlConnection.insertFunction("Exec CancelOrder " + Main.USERID + "," + dbTable.getInfo(i, 0));
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-                changed[1] = "NULL";
-                changed[3] = "3";
+                changed[1] = "null";
+                changed[3] = "Отказ. Ожидание нового оформления";
                 dbTable.updateRow(i, changed);
             }
         });

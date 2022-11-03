@@ -50,7 +50,7 @@ public class DataBaseTable extends JPanel {
     }
 
     public String getInfo(int row, int column) {
-        return (String) data[row][column];
+        return (String) model.getDataVector().get(row).get(column);
     }
 
     public Vector<Vector> getData() {
